@@ -19,6 +19,10 @@
     "@eslint/js": "^8.47.0",
     "@tivac/eslint-config": "^2.4.0",
     "eslint": "^8.47.0",
-    "globals": "^13.21.0"
+    "globals": "^13.21.0",
+    "postcss": "^8.4.27"
+  },
+  "peerDependencies": {
+    "postcss": "^8"
   }
 }
