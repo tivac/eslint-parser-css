@@ -1,13 +1,15 @@
 "use strict";
 
 const postcss = require("postcss");
+const scope = require("eslint-scope");
 
 const { name, version } = require("./package.json");
 
 const VISITOR_KEYS = {
+    root : [ "nodes" ],
     atrule : [ "name", "params", "nodes" ],
     comment : [ "text" ],
-    declaration : [ "prop", "value" ],
+    decl : [ "prop", "value" ],
     root : [ "nodes" ],
     rule : [ "selector", "nodes" ],
 };
@@ -24,6 +26,7 @@ const parseForESLint = (code, options) => {
     const ast = postcss.parse(code, { from : options.filePath });
     const tokens = [];
     const comments = [];
+
     let last;
 
     ast.walk((node) => {
@@ -52,12 +55,15 @@ const parseForESLint = (code, options) => {
     ast.tokens = tokens.sort(sortByRange);
     ast.comments = comments.sort(sortByRange);
 
-    // console.log(ast);
+    const scopeManager = scope.analyze(ast, { childVisitorKeys : VISITOR_KEYS });
+
+    // Set up global scope
+    scopeManager.__nestGlobalScope(ast);
 
     return {
         ast : ast,
         visitorKeys : VISITOR_KEYS,
-        scopeManager : null,
+        scopeManager,
     }
 };
 

@@ -1,6 +1,6 @@
 "use strict";
 
-console.log("rule");
+console.log("rule loaded");
 
 module.exports = {
 	meta : {

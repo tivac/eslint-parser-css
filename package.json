@@ -23,6 +23,10 @@
     "postcss": "^8.4.27"
   },
   "peerDependencies": {
+    "eslint": "^8",
     "postcss": "^8"
+  },
+  "dependencies": {
+    "eslint-scope": "^7.2.2"
   }
 }
