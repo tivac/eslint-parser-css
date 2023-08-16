@@ -13,7 +13,7 @@ module.exports = {
         console.log("rule.create", context);
 
       	return {
-            "declaration"(node) {
+            [`decl[value="red"]`](node) {
              	console.log(node);
             }
         };

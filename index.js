@@ -29,6 +29,8 @@ const parseForESLint = (code, options) => {
 
     let last;
 
+    // Walk nodes and add properties eslint expects, also collect all tokens and comments
+    // so we can provide those the way eslint likes it
     ast.walk((node) => {
         node.range = [ node.source.start.offset, node.source.end.offset ];
         node.loc = {
@@ -46,18 +48,25 @@ const parseForESLint = (code, options) => {
         last = node;
     });
 
+    // These feel slightly ridiculous, but what the hey
     ast.range = [ 0, last.source.end.offset ];
     ast.loc = {
         source : ast.source.input.css,
         start : ast.source.start,
         end : last.source.end,
     };
+
+    // ESlint expects these sorted by range, so we oblige
     ast.tokens = tokens.sort(sortByRange);
     ast.comments = comments.sort(sortByRange);
 
+    // ScopeManager needs this to figure out if we're in strict mode or not (spoilers we're not)
+    ast.body = ast.nodes;
+
+    // Take a look I guess, not gonna find anything
     const scopeManager = scope.analyze(ast, { childVisitorKeys : VISITOR_KEYS });
 
-    // Set up global scope
+    // Set up global scope, this is super sketchy
     scopeManager.__nestGlobalScope(ast);
 
     return {
