@@ -3,7 +3,7 @@
 const postcss = require("postcss");
 const scope = require("eslint-scope");
 
-const { name, version } = require("./package.json");
+const { name, version } = require("../../package.json");
 
 const VISITOR_KEYS = {
     root : [ "nodes" ],

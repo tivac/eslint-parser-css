@@ -1,0 +1,24 @@
+{
+  "name": "eslint-parser-css",
+  "version": "0.0.1",
+  "description": "Parse CSS with ESLint so you can, ya'know, lint it",
+  "main": "index.js",
+  "workspaces": [
+    "./packages/*"
+  ],
+  "keywords": [
+    "eslint",
+    "parser",
+    "postcss",
+    "css"
+  ],
+  "author": "Pat Cavit <npm@patcavit.com>",
+  "license": "MIT",
+  "peerDependencies": {
+    "eslint": "^8",
+    "postcss": "^8"
+  },
+  "dependencies": {
+    "eslint-scope": "^7.2.2"
+  }
+}
